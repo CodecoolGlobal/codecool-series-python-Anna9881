@@ -8,11 +8,12 @@ def get_shows():
 def get_most_rated_shows():
     return data_manager.execute_select(
         """ 
-       SELECT title, year, runtime, trailer, rating, genres.name AS genres FROM shows
+       SELECT title, year, runtime, trailer, rating, STRING_AGG(genres.name, ', ') AS genres FROM shows
         LEFT JOIN show_genres ON shows.id = show_genres.show_id
         LEFT JOIN genres ON genres.id = show_genres.genre_id
-        ORDER BY rating DESC
-        LIMIT 15
+        GROUP BY shows.id
+        ORDER BY shows.rating DESC
+        LIMIT 15;
         """
 )
 
