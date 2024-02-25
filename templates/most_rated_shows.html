@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="card">
+        These are 15 most rated shows:
+        <table>
+            <thead>
+            <tr>
+                <th><a href="{{ url_for('shows_most_rated', page_num=current_page, sort_by='title', sort_order='asc' if request.args.get('sort_by') == 'title' and request.args.get('sort_order') != 'asc' else 'desc') }}">Title {% if request.args.get('sort_by') == 'title' %}{% if request.args.get('sort_order') == 'desc' %}⇩{% else %}⇧{% endif %}{% endif %}</a></th>
+                <th><a href="{{ url_for('shows_most_rated', page_num=current_page, sort_by='year', sort_order='asc' if request.args.get('sort_by') == 'year' and request.args.get('sort_order') != 'asc' else 'desc') }}">Release year {% if request.args.get('sort_by') == 'year' %}{% if request.args.get('sort_order') == 'desc' %}⇩{% else %}⇧{% endif %}{% endif %}</a></th>
+                <th><a href="{{ url_for('shows_most_rated', page_num=current_page, sort_by='runtime', sort_order='asc' if request.args.get('sort_by') == 'runtime' and request.args.get('sort_order') != 'asc' else 'desc') }}">Average Runtime Lenght {% if request.args.get('sort_by') == 'runtime' %}{% if request.args.get('sort_order') == 'desc' %}⇩{% else %}⇧{% endif %}{% endif %}</a></th>
+                <th><a href="{{ url_for('shows_most_rated', page_num=current_page, sort_by='rating', sort_order='asc' if request.args.get('sort_by') == 'rating' and request.args.get('sort_order') != 'asc' else 'desc') }}">Rating {% if request.args.get('sort_by') == 'rating' %}{% if request.args.get('sort_order') == 'desc' %}⇩{% else %}⇧{% endif %}{% endif %}</a></th>
+                 <th>Genres</th>
+                <th>Trailer</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for show in shows %}
+                    <tr>
+                        <td>{{ show['title'] }}</td>
+                        <td>{{ show['year'] }}</td>
+                        <td>{{ show['runtime'] }}</td>
+                        <td>{{ show['rating'] | safe }}</td>
+                        <td>{{ show['genres'] }}</td>
+                        <td>{{ show['trailer'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if current_page>1 %}
+            <a href="{{ url_for('shows_most_rated', page_num=current_page-1) }}">&laquo;</a>
+        {% else %}
+            &laquo;
+        {% endif %}
+
+        {% for number in range(from_num, to_num + 1) %}
+
+
+
+            {% if number!=current_page %}
+                <a href="{{ url_for('shows_most_rated', page_num=number) }}">{{ number }}</a>
+            {% else %}
+                ({{ number }})
+            {% endif %}
+
+        {% endfor %}
+
+        {% if current_page!=num %}
+            <a href="{{ url_for('shows_most_rated', page_num=current_page+1) }}">&raquo;</a>
+        {% else %}
+            &raquo;
+        {% endif %}
+
+    </div>
+{% endblock %}
