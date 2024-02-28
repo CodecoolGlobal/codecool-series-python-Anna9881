@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="card detailed-view">
+            <script type="text/javascript">
+                var videoId = '{{ show.trailer_id }}';
+            </script>
+            <script type="text/javascript" src="{{ url_for('static', filename='js/embed-youtube.js') }}"></script>
+            <div class="row">
+                <div {% if show.trailer %} id="player" {% endif %} class="trailer col col-third"></div>
+                <h2>{{ show.title }}</h2>
+                <p class="small grayed">{{ show.runtime }} min.<span class="separator">|</span> {{ show.genres }}
+                </p>
+                <div>
+                    <b>Stars:</b>&nbsp;{{ actors }}
+                </div>
+                <div>
+                    <p><b>Ratings:</b> {{ show.rating }} ☆</p>
+                </div>
+                <div>
+                    <p><b>Overview:</b></p>
+                    <p>{{ show.overview }}</p>
+                </div>
+            </div>
+
+
+{% endblock %}

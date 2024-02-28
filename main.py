@@ -3,7 +3,6 @@ from data import queries
 import math
 from dotenv import load_dotenv
 
-from data.queries import get_shows, get_pages_num
 
 load_dotenv()
 app = Flask('codecool_series')
@@ -42,7 +41,17 @@ def shows_most_rated(page_num=1):
                            from_num=from_num,
                            to_num=to_num)
 
-
+@app.route('/show/<int:show_id>')
+def show_details(show_id):
+    show=queries.get_show(show_id)
+    actors=queries.get_actors(show_id)
+    show_actors = []
+    for actor in actors:
+        show_actors.append(actor['actors'])
+    show_actors = ", ".join(show_actors)
+    show['trailer_id'] = \
+        show['trailer'][show['trailer'].find('=') + 1:] if show['trailer'] else ''
+    return render_template('detailed_view.html', show=show, actors=show_actors)
 
 if __name__ == '__main__':
     app.run(debug=True)

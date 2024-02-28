@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="card">
-        These are 15 most rated shows:
+        These are most rated shows:
         <table>
             <thead>
             <tr>
@@ -15,14 +15,15 @@
             </thead>
             <tbody>
                 {% for show in shows %}
-                    <tr>
-                        <td>{{ show['title'] }}</td>
-                        <td>{{ show['year'] }}</td>
-                        <td>{{ show['runtime'] }}</td>
-                        <td>{{ show['rating'] | safe }}</td>
-                        <td>{{ show['genres'] }}</td>
-                        <td>{{ show['trailer'] }}</td>
-                    </tr>
+                   <tr>
+                    <td>{{ show.title }}</td>
+                    <td>{{ show.year }}</td>
+                    <td>{{ show.runtime }}</td>
+                    <td>{{ show.rating }}</td>
+                    <td>{{ show.genre }}</td>
+                    <td><a href="{{ show.homepage }}">{{ show.homepage }}</a></td>
+                    <td><a href="{{ show.trailer }}">{{ show.trailer }}</a></td>
+                </tr>
                 {% endfor %}
             </tbody>
         </table>
