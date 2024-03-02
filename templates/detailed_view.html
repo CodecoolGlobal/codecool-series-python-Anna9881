@@ -1,5 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
+    <div id="seasons" class="card">
+        Seasons
+        <table>
+            <thead>
+            <tr>
+                <th>Season Number</th>
+                <th>Title</th>
+                <th>Overview</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for season in seasons %}
+                   <tr>
+                    <td>{% if season['season_number'] == 0 %} {% else %}{{ season['season_number'] }}{% endif %}</td>
+                    <td>{{ season['title'] }}</td>
+                    <td>{% if season['overview'] is not none %}{{ season['overview'] }}{% else %}-{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     <div class="card detailed-view">
             <script type="text/javascript">
                 var videoId = '{{ show.trailer_id }}';

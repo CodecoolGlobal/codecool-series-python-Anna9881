@@ -51,6 +51,12 @@ def get_actors(show_id):
             LIMIT 3
     """, {"show_id": show_id})
 
+def get_seasons(show_id):
+    return data_manager.execute_select("""
+    SELECT season_number, title, overview FROM seasons
+    WHERE show_id = %(show_id)s
+    """, {"show_id": show_id})
+
 
 def get_pages_num():
     return data_manager.execute_select("""

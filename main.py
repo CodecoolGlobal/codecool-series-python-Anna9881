@@ -43,6 +43,7 @@ def shows_most_rated(page_num=1):
 
 @app.route('/show/<int:show_id>')
 def show_details(show_id):
+    seasons=queries.get_seasons(show_id)
     show=queries.get_show(show_id)
     actors=queries.get_actors(show_id)
     show_actors = []
@@ -51,7 +52,7 @@ def show_details(show_id):
     show_actors = ", ".join(show_actors)
     show['trailer_id'] = \
         show['trailer'][show['trailer'].find('=') + 1:] if show['trailer'] else ''
-    return render_template('detailed_view.html', show=show, actors=show_actors)
+    return render_template('detailed_view.html', show=show, actors=show_actors, seasons=seasons)
 
 if __name__ == '__main__':
     app.run(debug=True)
